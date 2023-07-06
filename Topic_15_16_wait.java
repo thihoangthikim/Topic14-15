@@ -43,13 +43,15 @@ public class Topic_15_16_wait {
 	@BeforeClass
 	public void beforeClass() {
 		if (osName.contains("Windows")) {
-			System.setProperty("webdriver.gecko.driver", projectPath + "\\browserDrivers\\geckodriver.exe");
+			System.setProperty("webdriver.chrome.driver", projectPath + "\\browserDriver\\chromedriver.exe");
 		} else {
-			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDrivers/geckodriver");
+			System.setProperty("webdriver.gecko.driver", projectPath + "/browserDriver/geckodriver");
 		}
 
-		driver = new FirefoxDriver();
-
+		driver = new ChromeDriver();
+		explicitWait = new WebDriverWait(driver, 10);
+		driver.manage().window().maximize();
+		
 		
 	}
 	
@@ -94,13 +96,31 @@ public class Topic_15_16_wait {
 	//@Test
 	public void TC_07_ExplicitlyWait() {
 		driver.get("https://gofile.io/?t=uploadFiles");
-		explicitWait = new WebDriverWait(driver,10);
-		driver.findElement(By.cssSelector("button.btn-lg")).click();
-		explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("//input[@type='file']"))).sendKeys(aPath + "\n" + bPath + "\n" + cPath);
+		explicitWait = new WebDriverWait(driver,30);
+		explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn-lg"))).click();
+		
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button.mb-1.filesUploadButton")));
+		driver.findElement(By.xpath("//input[@type='file']")).sendKeys(aPath + "\n" + bPath + "\n" + cPath);
 		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(driver.findElements(By.cssSelector("div.progress-bar"))));
-		
-		
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='row justify-content-center mainUploadSuccess']//div[contains(text(),'Your files have been successfully uploaded')]")));
+		explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.mainUploadSuccessLink a.ajaxLink"))).click();
+		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//span[text()='Download']")));
+		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//span[text()='Play']")));
 	}
+	public void TC_08_Fluent_Wait() {
+		driver.get("https://automationfc.github.io/fluent-wait/");
+		explicitWait = new WebDriverWait(driver,30);
+		explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("button.btn-lg"))).click();
+		
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("button.mb-1.filesUploadButton")));
+		driver.findElement(By.xpath("//input[@type='file']")).sendKeys(aPath + "\n" + bPath + "\n" + cPath);
+		explicitWait.until(ExpectedConditions.invisibilityOfAllElements(driver.findElements(By.cssSelector("div.progress-bar"))));
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='row justify-content-center mainUploadSuccess']//div[contains(text(),'Your files have been successfully uploaded')]")));
+		explicitWait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("div.mainUploadSuccessLink a.ajaxLink"))).click();
+		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//span[text()='Download']")));
+		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(By.xpath("//span[text()='Play']")));
+	}
+	
 	@AfterClass
 	public void afterClass() {
 		driver.quit();
