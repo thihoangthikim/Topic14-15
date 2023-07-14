@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel="false" name="Suite">
+  <test name="Run On FireFox">
+  <parameter name="browser" value="firefox" />
+  	<classes>>
+  		<class name = "TestNG.Topic_5_ParameterBrowser" />
+  	</classes>  
+  </test> 
+  
+    <test name="Run On Chrome">
+  <parameter name="browser" value="chrome" />
+  	<classes>>
+  		<class name = "TestNG.Topic_5_ParameterBrowser" />
+  	</classes>  
+  </test> 
+  
+    <test name="Run On Edge">
+  <parameter name="browser" value="edge" />
+  	<classes>>
+  		<class name = "TestNG.Topic_5_ParameterBrowser" />
+  	</classes>  
+  </test> 
+</suite> <!-- Suite -->
+<!-- 	<groups>--> 
+  	<!-- 	<run>--> 
+  		<!--		<include name="product"></include> -->
+  		<!--	</run>-->
+  		<!--</groups>	-->
+  	
+  	<!--	<packages>-->
+  		<!--	<package name="tiki.admin" />-->
+  	<!--  </packages>-->
+   	<!-- <classes>-->
+	<!-- <class name="tiki.admin.Shopper_01_Manage_Product"/> -->  
+	<!--<class name="tiki.admin.Visa"/> -->  
+	<!--<class name="tiki.user.User_01_CheckOut"/> -->   
+	<!--<class name="tiki.user.User_02_Order"/> -->  
+   	<!-- </classes>-->
+
